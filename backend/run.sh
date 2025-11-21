@@ -22,5 +22,7 @@ docker run -d --name mindhealer-backend \
     -v ${PWD}/books:/app/books \
     mindhealer-backend:latest
 
-# Show logs
-docker logs -f mindhealer-backend
+# Show recent logs (non-blocking)
+echo "Backend container started. Showing recent logs:"
+docker logs --tail 50 mindhealer-backend
+echo "Backend deployment complete!"

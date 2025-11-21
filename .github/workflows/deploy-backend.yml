@@ -71,12 +71,18 @@ jobs:
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa daisy@${{ secrets.GCP_VM_IP }} << 'ENDSSH'
             cd ${{ secrets.GCP_VM_PATH_BACKEND }}
             
-            # 載入最新的 Docker image
-            docker load -i $(ls -t mindhealer-backend-*.tar | head -1)
+            # 載入最新的 Docker image (使用 sudo)
+            sudo docker load -i $(ls -t mindhealer-backend-*.tar | head -1)
             
             # 執行部署腳本
             sudo chmod +x run.sh
-            sudo ./run.sh
+            sudo ./run.sh &
+            
+            # 等待容器啟動
+            sleep 5
+            
+            # 檢查容器狀態
+            sudo docker ps | grep mindhealer-backend || echo "Backend container may not be running"
           ENDSSH
 
       - name: Disable Firewall Rule
