@@ -30,12 +30,16 @@ async def startup_event():
 # CORS configuration to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://mindhealer.daisy2100.com",
+        "http://mindhealer.daisy2100.com",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 class ChatRequest(BaseModel):
     question: str
@@ -46,7 +50,7 @@ class ChatResponse(BaseModel):
     advice: str
 
 
-@app.get("/")
+@app.get("/api/healthy")
 async def root():
     from rag_core import _is_initialized
     return {
