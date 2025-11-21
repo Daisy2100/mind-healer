@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'frontend/**'
-      - '.github/workflows/deploy.yml'
+      - '.github/workflows/deploy-frontend.yml'
 
 jobs:
   build-and-deploy:
@@ -62,4 +62,17 @@ jobs:
 
       - name: Disable Firewall Rule
         if: always()
-        run: gcloud compute firewall-rules update allow-github-actions-ssh --disabled
+        run: |
+          # 等待一下讓資源狀態穩定
+          sleep 3
+          
+          # 重試機制關閉防火牆
+          for i in {1..3}; do
+            if gcloud compute firewall-rules update allow-github-actions-ssh --disabled; then
+              echo "Firewall rule disabled successfully"
+              break
+            else
+              echo "Attempt $i failed, retrying in 5 seconds..."
+              sleep 5
+            fi
+          done
