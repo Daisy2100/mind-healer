@@ -2,7 +2,11 @@
 import { ref } from 'vue'
 import axios from 'axios'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+// In production, use empty string to use relative path (proxied by nginx)
+// In development, use localhost
+const API_BASE_URL = import.meta.env.VITE_API_URL !== undefined 
+  ? import.meta.env.VITE_API_URL 
+  : 'http://localhost:8000'
 
 const userQuestion = ref('')
 const prescription = ref('')
