@@ -39,7 +39,36 @@ mind-healer/
 
 ## 🚀 快速開始
 
-### 方式 1: 使用 Docker (推薦)
+### 方式 1: 後端 Docker 部署（推薦）
+
+後端已完整打包為 Docker 容器，可獨立部署：
+
+**Windows 用戶：**
+```powershell
+cd backend
+.\deploy.ps1
+```
+
+**Linux/Mac 用戶：**
+```bash
+cd backend
+chmod +x deploy.sh
+./deploy.sh
+```
+
+**手動部署：**
+```bash
+cd backend
+docker-compose up -d
+```
+
+部署後訪問：
+- API: http://localhost:8000
+- API 文檔: http://localhost:8000/docs
+
+詳細部署指南請參閱 [backend/README.md](backend/README.md) 和 [backend/DEPLOYMENT.md](backend/DEPLOYMENT.md)
+
+### 方式 2: 完整系統 Docker Compose
 
 1. **確保已安裝 Docker 和 Docker Compose**
 
@@ -158,12 +187,6 @@ npm run dev
 系統提供備用模式，即使沒有資料也能運行。但 RAG 功能會受限。
 
 ---
-
-## 🔧 ~~整合你的 RAG 邏輯~~ (已完成)
-
-### ~~步驟 1: 修改 `backend/rag_core.py`~~ ✅
-
-~~將你 Notebook 中的 RAG 邏輯封裝到 `get_ai_response` 函式中:~~
 
 核心功能實現：
 
