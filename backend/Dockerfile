@@ -25,7 +25,7 @@ EXPOSE 8000
 
 # 健康檢查
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-    CMD curl -f http://localhost:8000/ || exit 1
+    CMD curl -f http://localhost:8000/api/healthy || exit 1
 
 # 啟動 FastAPI 應用（生產環境配置）
 CMD uvicorn main:app --host 0.0.0.0 --port ${PORT} --workers 1
