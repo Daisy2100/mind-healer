@@ -72,7 +72,7 @@ const reset = () => {
             :disabled="isLoading"
             class="btn-primary"
           >
-            {{ isLoading ? '求籤中...' : '🙏 求籤' }}
+            {{ isLoading ? '求籤中...(需要10秒左右)' : '🙏 求籤' }}
           </button>
           <button 
             @click="reset" 
