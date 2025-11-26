@@ -1,4 +1,6 @@
 name: Deploy Mind Healer Backend
+permissions:
+  contents: read
 
 on:
   push:
