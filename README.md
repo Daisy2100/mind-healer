@@ -8,6 +8,21 @@ Mind Healer 是一個創新的 AI 驅動心靈諮詢系統，採用 Retrieval-Au
 
 在成本考量上，本專案優先支援免費 LLM 服務，包括 Google Gemini 2.5 Flash（每日 1500 次免費請求）、Groq Llama 3.1 70B、本地運行的 Ollama，以及付費的 OpenAI GPT-4。系統具備自動檢測與降級機制，當主要 LLM 不可用時會自動切換備用方案，確保服務穩定性。技術創新方面，採用文本直接載入策略，將書籍內容直接嵌入 prompt 而非使用 embedding，有效規避 API 配額限制。專案完整實現 Docker 容器化部署，提供跨平台部署腳本（Windows/Linux），支援開發與生產環境的完整配置，並包含健康檢查、日誌監控等企業級功能，實現傳統心靈諮詢的數位化轉型與普及化應用。
 
+
+## 參考資料
+
+本專案參考並改進自以下開源專案：
+
+- **原始專案**: [用 RAG 打造心靈處方籤機器人](https://github.com/yenlung/AI-Demo/blob/master/%E3%80%90Demo06%E3%80%91%E7%94%A8_RAG_%E6%89%93%E9%80%A0%E5%BF%83%E9%9D%88%E8%99%95%E6%96%B9%E7%B1%A4%E6%A9%9F%E5%99%A8%E4%BA%BA.ipynb)
+- **作者**: yenlung
+- **改進內容**: 
+  - 從 Jupyter Notebook 重構為完整的全棧應用
+  - 新增多 LLM 支援與自動降級機制
+  - 實現 Docker 容器化部署方案
+  - 開發 Vue 3 響應式前端介面
+  - 加入健康檢查與監控功能
+  - 提供跨平台部署腳本
+  
 **核心功能：**
 1. 從聖嚴法師著作中檢索相關智慧內容
 2. 隨機抽取心靈處方籤（5 條精選法語）
@@ -579,8 +594,10 @@ MIT License - 自由使用、修改與分發
 - [ ] 支援 PostgreSQL 資料庫
 - [ ] 實現使用者認證系統
 
+
 ## 🙏 致謝
 
+- **yenlung** - 提供原始 RAG 心靈處方籤概念與實作
 - 聖嚴法師《真正的快樂》提供的心靈智慧
 - Google Gemini 提供的免費 LLM 服務
 - LangChain 社群的優秀框架
@@ -604,4 +621,4 @@ MIT License - 自由使用、修改與分發
 
 **Built with ❤️ using Vue 3, FastAPI, LangChain and RAG Technology**
 
-*最後更新：2025-11-21*
+*最後更新：2025-11-26*
