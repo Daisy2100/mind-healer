@@ -27,9 +27,6 @@ SWORD_DEMON_QUOTES = [
     "嗯你回答我？你們這些人回答我！Look at my eyes , tell me why , why baby why?"
 ]
 
-# 保留舊名稱以維持向後相容性
-SPIRITUAL_PRESCRIPTIONS = SWORD_DEMON_QUOTES
-
 # 全域變數，用於儲存已初始化的系統
 _llm = None
 _is_initialized = False
