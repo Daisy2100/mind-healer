@@ -13,8 +13,8 @@ from typing import Optional
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain_core.messages import HumanMessage
 
-# ⚔️ 劍魔語錄（取代原本的心靈處方籤）
-SPIRITUAL_PRESCRIPTIONS = [
+# ⚔️ 劍魔語錄
+SWORD_DEMON_QUOTES = [
     "怎麼不找找自己的問題？",
     "我爸得了MVP，你媽就是躺贏狗！",
     "他們不解決問題，他們解決你！",
@@ -23,6 +23,9 @@ SPIRITUAL_PRESCRIPTIONS = [
     "你太出格，你太激進！",
     "輸了還不能說？輸了還不能有情緒？"
 ]
+
+# 保留舊名稱以維持向後相容性
+SPIRITUAL_PRESCRIPTIONS = SWORD_DEMON_QUOTES
 
 # 全域變數，用於儲存已初始化的系統
 _llm = None
@@ -221,7 +224,7 @@ def get_ai_response(question: str) -> dict:
     
     try:
         # 抽取一條隨機的劍魔語錄
-        chosen_prescription = np.random.choice(SPIRITUAL_PRESCRIPTIONS)
+        chosen_quote = np.random.choice(SWORD_DEMON_QUOTES)
         
         # ⚔️ 劍魔風格 prompt，諷刺式 AI 吐槽
         prompt = f"""你是「小明劍魔」，一個充滿諷刺和黑色幽默的 AI 吐槽系統。
@@ -233,7 +236,7 @@ def get_ai_response(question: str) -> dict:
 - 最後給一點真正有用的建議（用諷刺包裝）
 
 使用者抽到的劍魔語錄：
-「{chosen_prescription}」
+「{chosen_quote}」
 
 使用者的煩惱：
 「{question}」
@@ -251,7 +254,7 @@ def get_ai_response(question: str) -> dict:
         final_response = _llm.invoke([HumanMessage(content=prompt)])
         
         return {
-            "prescription": chosen_prescription,
+            "prescription": chosen_quote,
             "advice": final_response.content
         }
         
@@ -264,14 +267,14 @@ def _get_fallback_response(question: str) -> dict:
     """
     當 RAG 系統無法使用時的備用回應（劍魔風格）
     """
-    chosen_prescription = np.random.choice(SPIRITUAL_PRESCRIPTIONS)
+    chosen_quote = np.random.choice(SWORD_DEMON_QUOTES)
     
     return {
-        "prescription": chosen_prescription,
+        "prescription": chosen_quote,
         "advice": f"你說你的煩惱是：「{question}」？\n\n"
                   f"怎麼不找找自己的問題？為什麼別人沒有這個煩惱？"
                   f"為什麼就你特別倒楣？全部找自己的問題好不好？\n\n"
-                  f"⚔️ 劍魔語錄：「{chosen_prescription}」\n\n"
+                  f"⚔️ 劍魔語錄：「{chosen_quote}」\n\n"
                   f"好啦不開玩笑了，系統現在有點問題（對，是系統的問題不是你的問題），"
                   f"但記住：有些事真的不是你的錯，別什麼都往自己身上扛。"
     }
