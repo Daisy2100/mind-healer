@@ -13,6 +13,7 @@ export $(cat .env | grep -v '^#' | xargs)
 # Run container
 docker run -d --name mindhealer-backend \
     -p 8000:8000 \
+    --net dockernet \
     --restart always \
     --hostname mindhealer-api \
     -e GOOGLE_API_KEY="${GOOGLE_API_KEY}" \

@@ -63,12 +63,6 @@ jobs:
           # 上傳 Docker tar 檔案到 VM
           scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa backend/dist/*.tar daisy@${{ secrets.GCP_VM_IP }}:${{ secrets.GCP_VM_PATH_BACKEND }}/ || exit 1
 
-          # 上傳 run.sh 和 .env (如果存在)
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa backend/run.sh daisy@${{ secrets.GCP_VM_IP }}:${{ secrets.GCP_VM_PATH_BACKEND }}/ || exit 1
-          
-          # 上傳 .env 檔案 (如果存在的話，否則忽略錯誤)
-          scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa backend/.env daisy@${{ secrets.GCP_VM_IP }}:${{ secrets.GCP_VM_PATH_BACKEND }}/ 2>/dev/null || echo ".env not found, skipping"
-
           # 在 VM 上載入 Docker image 並執行
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/id_rsa daisy@${{ secrets.GCP_VM_IP }} << 'ENDSSH'
             cd ${{ secrets.GCP_VM_PATH_BACKEND }}
@@ -85,7 +79,7 @@ jobs:
             
             # 檢查容器狀態
             sudo docker ps | grep mindhealer-backend || echo "Backend container may not be running"
-          ENDSSH
+            ENDSSH
 
       - name: Disable Firewall Rule
         if: always()
