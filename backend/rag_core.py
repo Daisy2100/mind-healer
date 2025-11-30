@@ -1,22 +1,30 @@
 """
-RAG Core Logic - 心靈處方籤機器人
+RAG Core Logic - 小明劍魔 AI 吐槽系統
 基於 LangChain 和 FAISS 的檢索增強生成系統
 支援多種 LLM：Groq (Llama)、Ollama (本地)、OpenAI
+
+⚔️ 小明劍魔迷因版 - 諷刺風格 AI 顧問
+靈感來源：B站實況主小明劍魔的經典語錄
 """
 
 import os
 import numpy as np
 from typing import Optional
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
-from langchain.schema import HumanMessage
+from langchain_core.messages import HumanMessage
 
-# 心靈處方籤列表
-SPIRITUAL_PRESCRIPTIONS = [
-    "感謝給我們機會，順境、逆境，皆是恩人。",
-    "身心常放鬆，逢人面帶笑；放鬆能使我們身心健康，帶笑容易增進彼此友誼。",
-    "識人識己識進退，時時身心平安；知福惜福多培福，處處廣結善緣。",
-    "平常心就是最自在、最愉快的心。",
-    "知道自己的缺點愈多，成長的速度愈快，對自己的信心也就愈堅定。"
+# ⚔️ 劍魔語錄
+SWORD_DEMON_QUOTES = [
+    "怎麼不找找自己的問題？",
+    "你爸得了MVP，你媽就是躺贏狗！",
+    "他們不解決問題，他們解決你！",
+    "我只能戰死，不能躺平被推死！",
+    "評分系統把人的付出異化掉了，懂嗎？",
+    "你太出格，你太激進！",
+    "輸了還不能說？輸了還不能有情緒？",
+    "我真的很佩服這個設計師，他媽的，這東西設計得剛剛好，真的就是剛剛好，唉這真的是智慧啊，剛剛好你吃飯又餓不死。",
+    "你告訴我怎麼贏，啊？你排群傻逼給我怎麼贏",
+    "嗯你回答我？你們這些人回答我！Look at my eyes , tell me why , why baby why?"
 ]
 
 # 全域變數，用於儲存已初始化的系統
@@ -215,22 +223,30 @@ def get_ai_response(question: str) -> dict:
         return _get_fallback_response(question)
     
     try:
-        # 抽取一條隨機的心靈處方籤
-        chosen_prescription = np.random.choice(SPIRITUAL_PRESCRIPTIONS)
+        # 抽取一條隨機的劍魔語錄
+        chosen_quote = np.random.choice(SWORD_DEMON_QUOTES)
         
-        # 自訂 prompt，結合心靈處方籤、書籍內容和使用者問題
-        prompt = f"""你是一位充滿智慧的心靈導師。
+        # ⚔️ 劍魔風格 prompt，諷刺式 AI 吐槽
+        prompt = f"""你是「小明劍魔」，一個充滿諷刺和黑色幽默的 AI 吐槽系統。
 
-使用者抽到了一個心靈處方籤：
-「{chosen_prescription}」
+你的風格特點：
+- 用誇張的方式把使用者的問題延伸到社會議題
+- 諷刺「找自己問題」這種把系統問題歸咎於個人的邏輯
+- 帶有憤怒但又幽默的語氣
+- 最後給一點真正有用的建議（用諷刺包裝）
 
-以下是來自聖嚴法師《真正的快樂》一書的部分內容：
-{_books_content[:3000]}
-
-請根據這個心靈處方籤的智慧，結合書中的觀念，用溫暖、正面且具啟發性的語氣，回應使用者的煩惱。回答請控制在 200 字以內，給予實用的建議和鼓勵。
+使用者抽到的劍魔語錄：
+「{chosen_quote}」
 
 使用者的煩惱：
 「{question}」
+
+請用小明劍魔的風格回應，包含以下結構：
+1. 先用「怎麼不找找自己的問題？」的邏輯諷刺一番（2-3句話）
+2. 把問題延伸到荒謬的社會現象（2-3句話）
+3. 最後給一個真正有意義的建議（用諷刺語氣包裝）
+
+回答請控制在 200 字以內。記住：你是在用黑色幽默幫助使用者，不是真的在罵人！
 
 你的回應："""
         
@@ -238,7 +254,7 @@ def get_ai_response(question: str) -> dict:
         final_response = _llm.invoke([HumanMessage(content=prompt)])
         
         return {
-            "prescription": chosen_prescription,
+            "prescription": chosen_quote,
             "advice": final_response.content
         }
         
@@ -249,15 +265,16 @@ def get_ai_response(question: str) -> dict:
 
 def _get_fallback_response(question: str) -> dict:
     """
-    當 RAG 系統無法使用時的備用回應
+    當 RAG 系統無法使用時的備用回應（劍魔風格）
     """
-    chosen_prescription = np.random.choice(SPIRITUAL_PRESCRIPTIONS)
+    chosen_quote = np.random.choice(SWORD_DEMON_QUOTES)
     
     return {
-        "prescription": chosen_prescription,
-        "advice": f"謝謝你分享你的煩惱：「{question}」。\n\n"
-                  f"根據你抽到的處方籤「{chosen_prescription}」，"
-                  f"希望這句話能為你帶來一些啟發。\n\n"
-                  f"每個困難都是成長的機會，相信自己能夠克服當前的挑戰。"
-                  f"不妨嘗試從不同角度看待問題，或許會有新的發現。"
+        "prescription": chosen_quote,
+        "advice": f"你說你的煩惱是：「{question}」？\n\n"
+                  f"怎麼不找找自己的問題？為什麼別人沒有這個煩惱？"
+                  f"為什麼就你特別倒楣？全部找自己的問題好不好？\n\n"
+                  f"⚔️ 劍魔語錄：「{chosen_quote}」\n\n"
+                  f"好啦不開玩笑了，系統現在有點問題（對，是系統的問題不是你的問題），"
+                  f"但記住：有些事真的不是你的錯，別什麼都往自己身上扛。"
     }
