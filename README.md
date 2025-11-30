@@ -34,7 +34,7 @@
 
 ### 迷因背景
 
-2025年1月31日，中國 B站實況主「小明劍魔」在直播 LOL 七連敗後被觀眾嘲諷，隨後爆發一連串經典吐槽，成為網路熱門迷因。
+2024年1月31日，中國 B站實況主「小明劍魔」在直播 LOL 七連敗後被觀眾嘲諷，隨後爆發一連串經典吐槽，成為網路熱門迷因。
 
 ### 劍魔語錄庫
 
@@ -138,7 +138,7 @@ docker-compose up -d --build
 
 | 服務 | URL |
 |------|-----|
-| 前端介面 | http://localhost:5173 |
+| 前端介面 | http://localhost |
 | 後端 API | http://localhost:8000 |
 | API 文檔 | http://localhost:8000/docs |
 
@@ -276,11 +276,12 @@ docker-compose up -d
 
 ## 致謝
 
-- **yenlung** - 提供原始 RAG 心靈處方籤概念
+- **[yenlung](https://github.com/yenlung)** - 提供原始 [RAG 心靈處方籤專案](https://github.com/yenlung/AI-Demo/blob/master/%E3%80%90Demo06%E3%80%91%E7%94%A8_RAG_%E6%89%93%E9%80%A0%E5%BF%83%E9%9D%88%E8%99%95%E6%96%B9%E7%B1%A4%E6%A9%9F%E5%99%A8%E4%BA%BA.ipynb)概念與實作
 - **小明劍魔** - B站實況主，提供經典迷因語錄靈感
-- [LangChain](https://langchain.com/) - LLM 應用框架
-- [FastAPI](https://fastapi.tiangolo.com/) - 後端框架
-- [Vue.js](https://vuejs.org/) - 前端框架
+- [LangChain](https://langchain.com/) - LLM 應用開發框架
+- [FastAPI](https://fastapi.tiangolo.com/) - Python Web 框架
+- [Vue.js](https://vuejs.org/) - 漸進式 JavaScript 框架
+- [Google Gemini](https://ai.google.dev/) - 免費 LLM 服務
 
 ---
 
@@ -300,4 +301,4 @@ docker-compose up -d
 
 *怎麼不找找自己的問題？*
 
-**最後更新:** 2025-11-27
+**最後更新:** 2025-11-30
